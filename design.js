@@ -238,8 +238,8 @@
 
     const welcomeScreenHTML = `
         <div class="chat-header">
-            <img class="chat-header-logo" src="\${settings.branding.logo}" alt="\${settings.branding.name}">
-            <span class="chat-header-title">\${settings.branding.name}</span>
+            <img class="chat-header-logo" src="${settings.branding.logo}" alt="${settings.branding.name}">
+            <span class="chat-header-title">${settings.branding.name}</span>
             <button class="chat-close-btn">×</button>
         </div>
         <div class="chat-welcome" style="display:none"></div>
@@ -258,7 +258,7 @@
                 </button>
             </div>
             <div class="chat-footer">
-                <a class="chat-footer-link" href="\${settings.branding.poweredBy.link}" target="_blank">\${settings.branding.poweredBy.text}</a>
+                <a class="chat-footer-link" href="${settings.branding.poweredBy.link}" target="_blank">${settings.branding.poweredBy.text}</a>
             </div>
         </div>
     `;
@@ -289,7 +289,7 @@
     function lockScroll() {
         pageScrollY = window.scrollY || 0;
         document.body.classList.add('chat-no-scroll');
-        document.body.style.top = `-\${pageScrollY}px`;
+        document.body.style.top = `-${pageScrollY}px`;
     }
     function unlockScroll() {
         document.body.classList.remove('chat-no-scroll');
@@ -308,7 +308,7 @@
     }
     function linkifyText(text) {
         const urlPattern = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-        return text.replace(urlPattern, (url) => `<a href="\${url}" target="_blank" rel="noopener noreferrer" class="chat-link">\${url}</a>`);
+        return text.replace(urlPattern, (url) => `<a href="${url}" target="_blank" rel="noopener noreferrer" class="chat-link">${url}</a>`);
     }
 
     // Send a message
