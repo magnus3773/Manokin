@@ -13,7 +13,7 @@
     // Styles (Manokin Green/Weiß + Mobile-Fixes)
     const widgetStyles = document.createElement('style');
     widgetStyles.textContent = `
-            .chat-assist-widget {
+                .chat-assist-widget {
             --chat-color-primary: var(--chat-widget-primary, #4B9207);   /* Grün (Button/Bubbles/Launcher) */
             --chat-color-secondary: var(--chat-widget-secondary, #3E7A05); /* dunkleres Grün für Verlauf */
             --chat-color-tertiary: var(--chat-widget-tertiary, #72B01D);  /* optionaler Akzent */
@@ -32,7 +32,7 @@
             --chat-transition: all .25s cubic-bezier(.4,0,.2,1);
             font-family: 'Poppins', sans-serif;
             }
-                    .chat-assist-widget .chat-window {
+        .chat-assist-widget .chat-window {
             position: fixed;
             bottom: 90px;
             z-index: 1000;
@@ -87,26 +87,32 @@
             display: flex; flex-direction: column; gap: 16px;
             overscroll-behavior: contain;
             -webkit-overflow-scrolling: touch;
-        }
         .chat-assist-widget .chat-messages::-webkit-scrollbar { width: 6px; }
         .chat-assist-widget .chat-messages::-webkit-scrollbar-track { background: transparent; }
         .chat-assist-widget .chat-messages::-webkit-scrollbar-thumb {
-            background-color: rgba(27, 67, 50, 0.3);
-            border-radius: var(--chat-radius-full);
+        background-color: rgba(75, 146, 7, 0.3); /* #4B9207 @ 30% */
+        border-radius: var(--chat-radius-full);
         }
 
         .chat-assist-widget .chat-bubble {
-            padding: 14px 18px; border-radius: 18px;
-            max-width: 85%; word-wrap: break-word; font-size: 15px; line-height: 1.5;
-            position: relative; white-space: pre-line; box-shadow: var(--chat-shadow-sm);
+        padding: 14px 18px; border-radius: 18px;
+        max-width: 85%; word-wrap: break-word; font-size: 15px; line-height: 1.5;
+        position: relative; white-space: pre-line; box-shadow: var(--chat-shadow-sm);
         }
+
         .chat-assist-widget .chat-bubble.user-bubble {
-            background: #115181B; color: #ffffff; align-self: flex-end;
-            border-bottom-right-radius: 6px;
+        background: #4B9207; /* Grün wie der Button */
+        color: #ffffff;
+        align-self: flex-end;
+        border-bottom-right-radius: 6px;
         }
+
         .chat-assist-widget .chat-bubble.bot-bubble {
-            background: #15181B; color: #15181B; align-self: flex-start;
-            border: 1px solid #15181B; border-bottom-left-radius: 6px;
+        background: #2A2E32; /* dunkles Grau */
+        color: #ffffff;
+        align-self: flex-start;
+        border: 1px solid #3A3F44;
+        border-bottom-left-radius: 6px;
         }
 
         .chat-assist-widget .typing-indicator {
@@ -165,6 +171,10 @@
         }
         .chat-assist-widget .chat-launcher-text { font-weight: 600; font-size: 15px; white-space: nowrap; }
 
+        .chat-assist-widget .chat-footer { padding: 10px; text-align: center; background: var(--chat-color-surface); border-top: 1px solid var(--chat-color-light); }
+        .chat-assist-widget .chat-footer-link { color: var(--chat-color-primary); text-decoration: none; font-size: 12px; opacity: 0.8; transition: var(--chat-transition); font-family: inherit; }
+        .chat-assist-widget .chat-footer-link:hover { opacity: 1; }
+
         /* Registrierung im DOM lassen, aber unsichtbar */
         .chat-assist-widget .user-registration { display: none !important; }
 
@@ -187,12 +197,12 @@
     `;
     document.head.appendChild(widgetStyles);
 
-    // Defaults (Manokin Green) — poweredBy geleert
+    // Defaults (Manokin Green)
     const defaultSettings = {
         webhook: { url: '', route: '' },
         branding: {
             logo: '', name: '', welcomeText: '', responseTimeText: '',
-            poweredBy: { text: '', link: '' }
+            poweredBy: { text: 'Powered by n8n', link: 'https://n8n.partnerlinks.io/fabimarkl' }
         },
         style: {
             primaryColor: '#1B4332',
@@ -240,7 +250,6 @@
         <div class="chat-welcome" style="display:none"></div>
     `;
 
-    // Footer mit "Powered by" entfernt
     const chatInterfaceHTML = `
         <div class="chat-body active">
             <div class="chat-messages"></div>
@@ -252,6 +261,9 @@
                         <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
                     </svg>
                 </button>
+            </div>
+            <div class="chat-footer">
+                <a class="chat-footer-link" href="${settings.branding.poweredBy.link}" target="_blank">${settings.branding.poweredBy.text}</a>
             </div>
         </div>
     `;
@@ -391,14 +403,12 @@
     });
 
     // Toggle open/close + Scroll-Lock
-    const closeButtons = chatWindow.querySelectorAll('.chat-close-btn');
-    const launchButton = widgetRoot.querySelector('.chat-launcher');
-
     launchButton.addEventListener('click', () => {
         chatWindow.classList.toggle('visible');
         if (chatWindow.classList.contains('visible')) lockScroll(); else unlockScroll();
     });
 
+    const closeButtons = chatWindow.querySelectorAll('.chat-close-btn');
     closeButtons.forEach(button => {
         button.addEventListener('click', () => {
             chatWindow.classList.remove('visible');
