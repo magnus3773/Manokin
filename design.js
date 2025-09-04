@@ -166,10 +166,6 @@
         }
         .chat-assist-widget .chat-launcher-text { font-weight: 600; font-size: 15px; white-space: nowrap; }
 
-        .chat-assist-widget .chat-footer { padding: 10px; text-align: center; background: var(--chat-color-surface); border-top: 1px solid var(--chat-color-light); }
-        .chat-assist-widget .chat-footer-link { color: var(--chat-color-primary); text-decoration: none; font-size: 12px; opacity: 0.8; transition: var(--chat-transition); font-family: inherit; }
-        .chat-assist-widget .chat-footer-link:hover { opacity: 1; }
-
         /* Registrierung im DOM lassen, aber unsichtbar */
         .chat-assist-widget .user-registration { display: none !important; }
 
@@ -192,12 +188,12 @@
     `;
     document.head.appendChild(widgetStyles);
 
-    // Defaults (Manokin Green)
+    // Defaults (Manokin Green) — poweredBy geleert
     const defaultSettings = {
         webhook: { url: '', route: '' },
         branding: {
             logo: '', name: '', welcomeText: '', responseTimeText: '',
-            poweredBy: { text: 'Powered by n8n', link: 'https://n8n.partnerlinks.io/fabimarkl' }
+            poweredBy: { text: '', link: '' }
         },
         style: {
             primaryColor: '#1B4332',
@@ -245,6 +241,7 @@
         <div class="chat-welcome" style="display:none"></div>
     `;
 
+    // Footer mit "Powered by" entfernt
     const chatInterfaceHTML = `
         <div class="chat-body active">
             <div class="chat-messages"></div>
@@ -256,9 +253,6 @@
                         <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
                     </svg>
                 </button>
-            </div>
-            <div class="chat-footer">
-                <a class="chat-footer-link" href="${settings.branding.poweredBy.link}" target="_blank">${settings.branding.poweredBy.text}</a>
             </div>
         </div>
     `;
@@ -398,12 +392,14 @@
     });
 
     // Toggle open/close + Scroll-Lock
+    const closeButtons = chatWindow.querySelectorAll('.chat-close-btn');
+    const launchButton = widgetRoot.querySelector('.chat-launcher');
+
     launchButton.addEventListener('click', () => {
         chatWindow.classList.toggle('visible');
         if (chatWindow.classList.contains('visible')) lockScroll(); else unlockScroll();
     });
 
-    const closeButtons = chatWindow.querySelectorAll('.chat-close-btn');
     closeButtons.forEach(button => {
         button.addEventListener('click', () => {
             chatWindow.classList.remove('visible');
