@@ -13,27 +13,26 @@
     // Styles (Manokin Green/Weiß + Mobile-Fixes)
     const widgetStyles = document.createElement('style');
     widgetStyles.textContent = `
-        .chat-assist-widget {
-            --chat-color-primary: var(--chat-widget-primary, #1B4332);
-            --chat-color-secondary: var(--chat-widget-secondary, #2D6A4F);
-            --chat-color-tertiary: var(--chat-widget-tertiary, #40916C);
-            --chat-color-light: var(--chat-widget-light, rgba(27,67,50,0.22));
-            --chat-color-surface: var(--chat-widget-surface, #ffffff);
-            --chat-color-text: var(--chat-widget-text, #1B4332);
-            --chat-color-text-light: var(--chat-widget-text-light, #2D6A4F);
-            --chat-color-border: var(--chat-widget-border, rgba(27,67,50,0.28));
-            --chat-shadow-sm: 0 1px 3px rgba(27,67,50, 0.12);
-            --chat-shadow-md: 0 4px 6px rgba(27,67,50, 0.18);
-            --chat-shadow-lg: 0 10px 15px rgba(27,67,50, 0.26);
+            .chat-assist-widget {
+            --chat-color-primary: var(--chat-widget-primary, #4B9207);   /* Grün (Button/Bubbles/Launcher) */
+            --chat-color-secondary: var(--chat-widget-secondary, #3E7A05); /* dunkleres Grün für Verlauf */
+            --chat-color-tertiary: var(--chat-widget-tertiary, #72B01D);  /* optionaler Akzent */
+            --chat-color-light: var(--chat-widget-light, #3a3f44);        /* helle Linie/Schatten auf Dark */
+            --chat-color-surface: var(--chat-widget-surface, #1F2326);    /* dunkles Grau: Fenster + Controls */
+            --chat-color-text: var(--chat-widget-text, #ffffff);          /* Standard-Text auf Dark */
+            --chat-color-text-light: var(--chat-widget-text-light, #cbd5e1);
+            --chat-color-border: var(--chat-widget-border, #3a3f44);
+            --chat-shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
+            --chat-shadow-md: 0 4px 6px rgba(0,0,0,0.30);
+            --chat-shadow-lg: 0 10px 15px rgba(0,0,0,0.35);
             --chat-radius-sm: 8px;
             --chat-radius-md: 12px;
             --chat-radius-lg: 20px;
             --chat-radius-full: 9999px;
-            --chat-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --chat-transition: all .25s cubic-bezier(.4,0,.2,1);
             font-family: 'Poppins', sans-serif;
-        }
-
-        .chat-assist-widget .chat-window {
+            }
+                    .chat-assist-widget .chat-window {
             position: fixed;
             bottom: 90px;
             z-index: 1000;
@@ -102,12 +101,12 @@
             position: relative; white-space: pre-line; box-shadow: var(--chat-shadow-sm);
         }
         .chat-assist-widget .chat-bubble.user-bubble {
-            background: #1B4332; color: #ffffff; align-self: flex-end;
+            background: #115181B; color: #ffffff; align-self: flex-end;
             border-bottom-right-radius: 6px;
         }
         .chat-assist-widget .chat-bubble.bot-bubble {
-            background: #ffffff; color: #1B4332; align-self: flex-start;
-            border: 1px solid #1B4332; border-bottom-left-radius: 6px;
+            background: #15181B; color: #15181B; align-self: flex-start;
+            border: 1px solid #15181B; border-bottom-left-radius: 6px;
         }
 
         .chat-assist-widget .typing-indicator {
