@@ -83,7 +83,8 @@
         .chat-assist-widget .chat-body.active { display: flex; }
 
         .chat-assist-widget .chat-messages {
-            flex: 1; overflow-y: auto; padding: 20px; background: #f9fafb;
+            flex: 1; overflow-y: auto; padding: 20px;
+            background: var(--chat-color-surface);  /* MITTE = GRAU (Surface) */
             display: flex; flex-direction: column; gap: 16px; /* mehr Abstand */
             overscroll-behavior: contain;
             -webkit-overflow-scrolling: touch;
@@ -120,7 +121,9 @@
         @keyframes typingAnimation { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
 
         .chat-assist-widget .chat-controls {
-            padding: 16px; background: var(--chat-color-surface); border-top: 1px solid var(--chat-color-light);
+            padding: 16px;
+            background: linear-gradient(135deg, var(--chat-color-primary) 0%, var(--chat-color-secondary) 100%); /* UNTEN = GRÜN */
+            border-top: 1px solid var(--chat-color-light);
             display: flex; gap: 10px;
         }
         /* iOS-Zoom verhindern: 16px+ */
@@ -159,13 +162,15 @@
         .chat-assist-widget .chat-launcher:hover { transform: scale(1.05); box-shadow: var(--chat-shadow-lg); }
         .chat-assist-widget .chat-launcher svg { width: 24px; height: 24px; }
         /* Launcher ausblenden, sobald das Chatfenster geöffnet ist */
-.chat-assist-widget .chat-window.visible + .chat-launcher {
-  display: none !important;
-}
+        .chat-assist-widget .chat-window.visible + .chat-launcher { display: none !important; }
         .chat-assist-widget .chat-launcher-text { font-weight: 600; font-size: 15px; white-space: nowrap; }
 
-        .chat-assist-widget .chat-footer { padding: 10px; text-align: center; background: var(--chat-color-surface); border-top: 1px solid var(--chat-color-light); }
-        .chat-assist-widget .chat-footer-link { color: var(--chat-color-primary); text-decoration: none; font-size: 12px; opacity: 0.8; transition: var(--chat-transition); font-family: inherit; }
+        .chat-assist-widget .chat-footer {
+            padding: 10px; text-align: center;
+            background: linear-gradient(135deg, var(--chat-color-primary) 0%, var(--chat-color-secondary) 100%); /* UNTEN = GRÜN */
+            border-top: 1px solid var(--chat-color-light);
+        }
+        .chat-assist-widget .chat-footer-link { color: #ffffff; text-decoration: none; font-size: 12px; opacity: 0.9; transition: var(--chat-transition); font-family: inherit; }
         .chat-assist-widget .chat-footer-link:hover { opacity: 1; }
 
         /* Registrierung im DOM lassen, aber unsichtbar */
