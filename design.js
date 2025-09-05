@@ -1,5 +1,4 @@
-<!-- Interactive Chat Widget for n8n — Registrierung entfernt, CSS ergänzt, Mobile-Fixes (iOS Zoom & Scroll-Lock) -->
-<script>
+// Interactive Chat Widget for n8n — Registrierung entfernt, CSS ergänzt, Mobile-Fixes (iOS Zoom & Scroll-Lock)
 (function() {
     if (window.N8nChatWidgetLoaded) return;
     window.N8nChatWidgetLoaded = true;
@@ -10,21 +9,21 @@
     fontElement.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap';
     document.head.appendChild(fontElement);
 
-    // Styles (Manokin Green/Dunkelgrau + Mobile-Fixes)
+    // Styles (Navy/Weiß + Mobile-Fixes)
     const widgetStyles = document.createElement('style');
     widgetStyles.textContent = `
         .chat-assist-widget {
-            --chat-color-primary: var(--chat-widget-primary, #4B9207);
-            --chat-color-secondary: var(--chat-widget-secondary, #3E7A05);
-            --chat-color-tertiary: var(--chat-widget-tertiary, #61A60C);
-            --chat-color-light: var(--chat-widget-light, rgba(75,146,7,0.22));
-            --chat-color-surface: var(--chat-widget-surface, #1F2326);
-            --chat-color-text: var(--chat-widget-text, #1F2326);
-            --chat-color-text-light: var(--chat-widget-text-light, #9CA3AF);
-            --chat-color-border: var(--chat-widget-border, rgba(75,146,7,0.28));
-            --chat-shadow-sm: 0 1px 3px rgba(31,35,38, 0.12);
-            --chat-shadow-md: 0 4px 6px rgba(31,35,38, 0.18);
-            --chat-shadow-lg: 0 10px 15px rgba(31,35,38, 0.26);
+            --chat-color-primary: var(--chat-widget-primary, #0b1f3f);
+            --chat-color-secondary: var(--chat-widget-secondary, #163a6b);
+            --chat-color-tertiary: var(--chat-widget-tertiary, #0f2c56);
+            --chat-color-light: var(--chat-widget-light, rgba(11,31,63,0.22));
+            --chat-color-surface: var(--chat-widget-surface, #ffffff);
+            --chat-color-text: var(--chat-widget-text, #0b1f3f);
+            --chat-color-text-light: var(--chat-widget-text-light, #163a6b);
+            --chat-color-border: var(--chat-widget-border, rgba(11,31,63,0.28));
+            --chat-shadow-sm: 0 1px 3px rgba(11,31,63, 0.12);
+            --chat-shadow-md: 0 4px 6px rgba(11,31,63, 0.18);
+            --chat-shadow-lg: 0 10px 15px rgba(11,31,63, 0.26);
             --chat-radius-sm: 8px;
             --chat-radius-md: 12px;
             --chat-radius-lg: 20px;
@@ -84,7 +83,7 @@
         .chat-assist-widget .chat-body.active { display: flex; }
 
         .chat-assist-widget .chat-messages {
-            flex: 1; overflow-y: auto; padding: 20px; background: var(--chat-color-surface);
+            flex: 1; overflow-y: auto; padding: 20px; background: #f9fafb;
             display: flex; flex-direction: column; gap: 16px; /* mehr Abstand */
             overscroll-behavior: contain;
             -webkit-overflow-scrolling: touch;
@@ -92,7 +91,7 @@
         .chat-assist-widget .chat-messages::-webkit-scrollbar { width: 6px; }
         .chat-assist-widget .chat-messages::-webkit-scrollbar-track { background: transparent; }
         .chat-assist-widget .chat-messages::-webkit-scrollbar-thumb {
-            background-color: rgba(75, 146, 7, 0.3);
+            background-color: rgba(11, 31, 63, 0.3);
             border-radius: var(--chat-radius-full);
         }
 
@@ -102,12 +101,12 @@
             position: relative; white-space: pre-line; box-shadow: var(--chat-shadow-sm);
         }
         .chat-assist-widget .chat-bubble.user-bubble {
-            background: #4B9207; color: #ffffff; align-self: flex-end;
+            background: #0b1f3f; color: #ffffff; align-self: flex-end;
             border-bottom-right-radius: 6px;
         }
         .chat-assist-widget .chat-bubble.bot-bubble {
-            background: #ffffff; color: #1F2326; align-self: flex-start;
-            border: 1px solid #4B9207; border-bottom-left-radius: 6px;
+            background: #ffffff; color: #0b1f3f; align-self: flex-start;
+            border: 1px solid #0b1f3f; border-bottom-left-radius: 6px;
         }
 
         .chat-assist-widget .typing-indicator {
@@ -129,16 +128,16 @@
             flex: 1; padding: 14px 16px;
             border: 1px solid var(--chat-color-light);
             border-radius: var(--chat-radius-md);
-            background: #ffffff; color: #1F2326;
+            background: #ffffff; color: #0b1f3f;
             resize: none; font-family: inherit;
             font-size: 16px; line-height: 1.5; /* 16px! */
             max-height: 120px; min-height: 48px; transition: var(--chat-transition);
         }
         .chat-assist-widget .chat-textarea:focus {
             outline: none; border-color: var(--chat-color-primary);
-            box-shadow: 0 0 0 3px rgba(75, 146, 7, 0.2);
+            box-shadow: 0 0 0 3px rgba(11, 31, 63, 0.2);
         }
-        .chat-assist-widget .chat-textarea::placeholder { color: #9CA3AF; opacity: 1; }
+        .chat-assist-widget .chat-textarea::placeholder { color: #6b7280; opacity: 1; }
 
         .chat-assist-widget .chat-submit {
             background: linear-gradient(135deg, var(--chat-color-primary) 0%, var(--chat-color-secondary) 100%);
@@ -159,13 +158,14 @@
         .chat-assist-widget .chat-launcher.left-side { left: 20px; }
         .chat-assist-widget .chat-launcher:hover { transform: scale(1.05); box-shadow: var(--chat-shadow-lg); }
         .chat-assist-widget .chat-launcher svg { width: 24px; height: 24px; }
-
         /* Launcher ausblenden, sobald das Chatfenster geöffnet ist */
-        .chat-assist-widget .chat-window.visible + .chat-launcher { display: none !important; }
+.chat-assist-widget .chat-window.visible + .chat-launcher {
+  display: none !important;
+}
         .chat-assist-widget .chat-launcher-text { font-weight: 600; font-size: 15px; white-space: nowrap; }
 
         .chat-assist-widget .chat-footer { padding: 10px; text-align: center; background: var(--chat-color-surface); border-top: 1px solid var(--chat-color-light); }
-        .chat-assist-widget .chat-footer-link { color: #CFE9BB; text-decoration: none; font-size: 12px; opacity: 0.85; transition: var(--chat-transition); font-family: inherit; }
+        .chat-assist-widget .chat-footer-link { color: var(--chat-color-primary); text-decoration: none; font-size: 12px; opacity: 0.8; transition: var(--chat-transition); font-family: inherit; }
         .chat-assist-widget .chat-footer-link:hover { opacity: 1; }
 
         /* Registrierung im DOM lassen, aber unsichtbar */
@@ -185,12 +185,12 @@
             .chat-assist-widget .chat-launcher { bottom: 12px; }
         }
 
-        /* Optional: globale Defaults (neutral) */
-        body { font-family: system-ui; background: #ffffff; color: #1F2326; text-align: center; }
+        /* ===== Dein Zusatz-CSS (Bubbles/Textbox) wurde integriert ===== */
+        body { font-family: system-ui; background: #f06d06; color: white; text-align: center; }
     `;
     document.head.appendChild(widgetStyles);
 
-    // Defaults (Manokin)
+    // Defaults (Navy)
     const defaultSettings = {
         webhook: { url: '', route: '' },
         branding: {
@@ -198,11 +198,11 @@
             poweredBy: { text: 'Powered by n8n', link: 'https://n8n.partnerlinks.io/fabimarkl' }
         },
         style: {
-            primaryColor: '#4B9207',
-            secondaryColor: '#3E7A05',
+            primaryColor: '#0b1f3f',
+            secondaryColor: '#163a6b',
             position: 'right',
-            backgroundColor: '#1F2326',
-            fontColor: '#ffffff'
+            backgroundColor: '#ffffff',
+            fontColor: '#0b1f3f'
         },
         suggestedQuestions: []
     };
@@ -215,9 +215,8 @@
             style: {
                 ...defaultSettings.style,
                 ...window.ChatWidgetConfig.style,
-                // Falls jemand versehentlich Purple setzt, auf Manokin-Grün zurückfallen
-                primaryColor: window.ChatWidgetConfig.style?.primaryColor === '#854fff' ? '#4B9207' : (window.ChatWidgetConfig.style?.primaryColor || defaultSettings.style.primaryColor),
-                secondaryColor: window.ChatWidgetConfig.style?.secondaryColor === '#6b3fd4' ? '#3E7A05' : (window.ChatWidgetConfig.style?.secondaryColor || defaultSettings.style.secondaryColor)
+                primaryColor: window.ChatWidgetConfig.style?.primaryColor === '#854fff' ? '#10b981' : (window.ChatWidgetConfig.style?.primaryColor || defaultSettings.style.primaryColor),
+                secondaryColor: window.ChatWidgetConfig.style?.secondaryColor === '#6b3fd4' ? '#059669' : (window.ChatWidgetConfig.style?.secondaryColor || defaultSettings.style.secondaryColor)
             },
             suggestedQuestions: window.ChatWidgetConfig.suggestedQuestions || defaultSettings.suggestedQuestions
         } : defaultSettings;
@@ -413,4 +412,3 @@
     // chatWindow.classList.add('visible'); lockScroll();
 
 })();
-</script>
